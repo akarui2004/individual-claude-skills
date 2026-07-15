@@ -24,22 +24,50 @@ Before installing the skill, ensure you have:
 
 ### 2. **Environment Variables (Optional but Recommended)**
    Set these for seamless Jira access:
+
+   **Linux/macOS:**
    ```bash
    export JIRA_API_TOKEN="your_jira_api_token"
    export JIRA_USER="your_email@company.com"
    export JIRA_DOMAIN="your-company.atlassian.net"
    ```
 
+   **Windows (PowerShell):**
+   ```powershell
+   $env:JIRA_API_TOKEN="your_jira_api_token"
+   $env:JIRA_USER="your_email@company.com"
+   $env:JIRA_DOMAIN="your-company.atlassian.net"
+   ```
+
+   **Windows (Command Prompt):**
+   ```cmd
+   set JIRA_API_TOKEN=your_jira_api_token
+   set JIRA_USER=your_email@company.com
+   set JIRA_DOMAIN=your-company.atlassian.net
+   ```
+
 ### 3. **Jira CLI (Optional)**
    For enhanced functionality, install the Jira CLI:
-   ```bash
-   # macOS
-   brew install jira-cli
 
-   # Linux
+   **macOS (Homebrew):**
+   ```bash
+   brew install jira-cli
+   ```
+
+   **Linux:**
+   ```bash
    curl -L https://github.com/go-jira/jira/releases/download/v1.0.27/jira-linux-amd64 -o /usr/local/bin/jira
    chmod +x /usr/local/bin/jira
    ```
+
+   **Windows (Chocolatey):**
+   ```powershell
+   choco install jira-cli
+   ```
+
+   **Windows (Manual Download):**
+   1. Download from https://github.com/go-jira/jira/releases (jira-windows-amd64.exe)
+   2. Add the executable to your PATH or use the full path when running
 
 ---
 
@@ -114,6 +142,7 @@ The skill should fetch and display your Jira tasks for today.
 
 Install the skill globally so it's available in every project:
 
+**Linux/macOS:**
 1. **Create the skill directory:**
    ```bash
    mkdir -p ~/.claude/skills/jira-daily-report
@@ -125,9 +154,44 @@ Install the skill globally so it's available in every project:
       ~/.claude/skills/jira-daily-report/SKILL.md
    ```
 
+**Windows (PowerShell):**
+1. **Create the skill directory:**
+   ```powershell
+   New-Item -ItemType Directory -Path "$env:APPDATA\.claude\skills\jira-daily-report" -Force
+   ```
+
+2. **Copy the SKILL.md file:**
+   ```powershell
+   Copy-Item -Path "C:\path\to\MyAISkills\claude\SKILLs\jira-daily-report\SKILL.md" `
+             -Destination "$env:APPDATA\.claude\skills\jira-daily-report\SKILL.md"
+   ```
+
+**Windows (Command Prompt):**
+1. **Create the skill directory:**
+   ```cmd
+   mkdir "%APPDATA%\.claude\skills\jira-daily-report"
+   ```
+
+2. **Copy the SKILL.md file:**
+   ```cmd
+   copy "C:\path\to\MyAISkills\claude\SKILLs\jira-daily-report\SKILL.md" "%APPDATA%\.claude\skills\jira-daily-report\SKILL.md"
+   ```
+
 3. **Verify the file exists:**
+
+   **Linux/macOS:**
    ```bash
    ls -la ~/.claude/skills/jira-daily-report/
+   ```
+
+   **Windows (PowerShell):**
+   ```powershell
+   Get-ChildItem "$env:APPDATA\.claude\skills\jira-daily-report"
+   ```
+
+   **Windows (Command Prompt):**
+   ```cmd
+   dir "%APPDATA%\.claude\skills\jira-daily-report"
    ```
 
 4. **Restart Claude Code** (VSCode, CLI, or other):
@@ -138,6 +202,7 @@ Install the skill globally so it's available in every project:
 
 Install the skill for a single project only:
 
+**Linux/macOS:**
 1. **Create the skill directory in your project:**
    ```bash
    mkdir -p .claude/skills/jira-daily-report
@@ -154,6 +219,39 @@ Install the skill for a single project only:
    ls -la .claude/skills/jira-daily-report/
    ```
 
+**Windows (PowerShell):**
+1. **Create the skill directory in your project:**
+   ```powershell
+   New-Item -ItemType Directory -Path ".claude\skills\jira-daily-report" -Force
+   ```
+
+2. **Copy the SKILL.md file:**
+   ```powershell
+   Copy-Item -Path "C:\path\to\MyAISkills\claude\SKILLs\jira-daily-report\SKILL.md" `
+             -Destination ".claude\skills\jira-daily-report\SKILL.md"
+   ```
+
+3. **Verify the file exists:**
+   ```powershell
+   Get-ChildItem ".claude\skills\jira-daily-report"
+   ```
+
+**Windows (Command Prompt):**
+1. **Create the skill directory in your project:**
+   ```cmd
+   mkdir ".claude\skills\jira-daily-report"
+   ```
+
+2. **Copy the SKILL.md file:**
+   ```cmd
+   copy "C:\path\to\MyAISkills\claude\SKILLs\jira-daily-report\SKILL.md" ".claude\skills\jira-daily-report\SKILL.md"
+   ```
+
+3. **Verify the file exists:**
+   ```cmd
+   dir ".claude\skills\jira-daily-report"
+   ```
+
 4. **Restart Claude Code** and open this project
    - The skill will now be available within this project only
 
@@ -162,9 +260,23 @@ Install the skill for a single project only:
 For Claude Code to access your Jira instance, set up credentials:
 
 #### Option 1: Use Environment Variables
+
+**Linux/macOS (Bash):**
 ```bash
 export JIRA_API_TOKEN="your_api_token"
 export JIRA_USER="your_email@company.com"
+```
+
+**Windows (PowerShell):**
+```powershell
+$env:JIRA_API_TOKEN="your_api_token"
+$env:JIRA_USER="your_email@company.com"
+```
+
+**Windows (Command Prompt):**
+```cmd
+set JIRA_API_TOKEN=your_api_token
+set JIRA_USER=your_email@company.com
 ```
 
 #### Option 2: Use Jira CLI Configuration
@@ -174,11 +286,33 @@ jira configure -H https://your-company.atlassian.net -u your_email@company.com -
 ```
 
 #### Option 3: Create a `.env` File (Project-Specific)
+
+**Linux/macOS:**
 ```bash
 # In your project root
 echo "JIRA_API_TOKEN=your_api_token" > .env
 echo "JIRA_USER=your_email@company.com" >> .env
 echo "JIRA_DOMAIN=your-company.atlassian.net" >> .env
+```
+
+**Windows (PowerShell):**
+```powershell
+# In your project root
+@"
+JIRA_API_TOKEN=your_api_token
+JIRA_USER=your_email@company.com
+JIRA_DOMAIN=your-company.atlassian.net
+"@ | Out-File -FilePath ".env" -Encoding UTF8
+```
+
+**Windows (Command Prompt):**
+```cmd
+# In your project root
+(
+  echo JIRA_API_TOKEN=your_api_token
+  echo JIRA_USER=your_email@company.com
+  echo JIRA_DOMAIN=your-company.atlassian.net
+) > .env
 ```
 
 ---
@@ -223,8 +357,9 @@ You should see a markdown report containing:
 
 **Solutions:**
 - Verify the file is at the correct location:
-  - Global: `~/.claude/skills/jira-daily-report/SKILL.md`
-  - Project: `.claude/skills/jira-daily-report/SKILL.md`
+  - **Linux/macOS Global:** `~/.claude/skills/jira-daily-report/SKILL.md`
+  - **Windows Global:** `%APPDATA%\.claude\skills\jira-daily-report\SKILL.md`
+  - **Project:** `.claude/skills/jira-daily-report/SKILL.md` (all platforms)
 - Restart your editor/CLI
 - Check the file has YAML frontmatter:
   ```markdown
@@ -240,15 +375,36 @@ You should see a markdown report containing:
 
 **Solutions:**
 1. Verify your Jira credentials are correct:
+
+   **Linux/macOS:**
    ```bash
    curl -u $JIRA_USER:$JIRA_API_TOKEN \
         https://$JIRA_DOMAIN/rest/api/3/myself
    ```
 
+   **Windows (PowerShell):**
+   ```powershell
+   curl.exe -u "$env:JIRA_USER:$env:JIRA_API_TOKEN" "https://$env:JIRA_DOMAIN/rest/api/3/myself"
+   ```
+
 2. Ensure environment variables are set:
+
+   **Linux/macOS:**
    ```bash
    echo $JIRA_API_TOKEN
    echo $JIRA_USER
+   ```
+
+   **Windows (PowerShell):**
+   ```powershell
+   Write-Output $env:JIRA_API_TOKEN
+   Write-Output $env:JIRA_USER
+   ```
+
+   **Windows (Command Prompt):**
+   ```cmd
+   echo %JIRA_API_TOKEN%
+   echo %JIRA_USER%
    ```
 
 3. Check your Jira API token is valid:
@@ -257,9 +413,17 @@ You should see a markdown report containing:
    - Create a new one if needed
 
 4. Update credentials:
+
+   **Linux/macOS:**
    ```bash
    export JIRA_API_TOKEN="new_token"
    export JIRA_USER="your_email@company.com"
+   ```
+
+   **Windows (PowerShell):**
+   ```powershell
+   $env:JIRA_API_TOKEN="new_token"
+   $env:JIRA_USER="your_email@company.com"
    ```
 
 ### Issue 3: No Tasks Found
@@ -281,21 +445,34 @@ You should see a markdown report containing:
 3. Verify your user has access to the Jira board
 
 4. Check your Jira JQL query permissions:
+
+   **Linux/macOS:**
    ```bash
    curl -u $JIRA_USER:$JIRA_API_TOKEN \
         "https://$JIRA_DOMAIN/rest/api/3/search?jql=assignee%3DcurrentUser()"
+   ```
+
+   **Windows (PowerShell):**
+   ```powershell
+   curl.exe -u "$env:JIRA_USER:$env:JIRA_API_TOKEN" "https://$env:JIRA_DOMAIN/rest/api/3/search?jql=assignee%3DcurrentUser()"
    ```
 
 ### Issue 4: Permission Denied in Claude Code
 
 **Problem:** "Permission denied" when trying to access `.claude/skills/`
 
-**Solution:**
+**Solution (Linux/macOS):**
 ```bash
 # Ensure proper permissions
 chmod -R 755 ~/.claude/skills/
 chmod -R 755 .claude/skills/
 ```
+
+**Solution (Windows):**
+Windows typically handles permissions differently. If you encounter permission issues:
+1. Run Command Prompt or PowerShell as Administrator
+2. Delete and recreate the `.claude/skills/` directory
+3. Verify the file is not locked by another application
 
 ### Issue 5: Skill Works in Web but Not in Claude Code
 
@@ -304,9 +481,22 @@ chmod -R 755 .claude/skills/
 **Solutions:**
 1. Ensure you used the correct YAML frontmatter format (not markdown metadata)
 2. Verify the file path:
+
+   **Linux/macOS:**
    ```bash
    cat ~/.claude/skills/jira-daily-report/SKILL.md | head -10
    # Should show the YAML frontmatter starting with ---
+   ```
+
+   **Windows (PowerShell):**
+   ```powershell
+   Get-Content "$env:APPDATA\.claude\skills\jira-daily-report\SKILL.md" -Head 10
+   # Should show the YAML frontmatter starting with ---
+   ```
+
+   **Windows (Command Prompt):**
+   ```cmd
+   type "%APPDATA%\.claude\skills\jira-daily-report\SKILL.md" | findstr /n ".*" | more +2
    ```
 3. Restart your editor completely
 4. Try project-specific installation if global doesn't work
