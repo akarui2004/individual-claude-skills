@@ -1,0 +1,4 @@
+# Igore setting folder by IDE, Editor Coding Tool
+/.idea/
+/.vscode/
+/.serena/
